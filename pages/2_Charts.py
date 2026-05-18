@@ -79,7 +79,7 @@ square_miles = totals
 if selected_norm == "Percentage":
     st.subheader(f"Land Use {selected_type} Percentage (%) Distribution in {selected_year} — {selected_area}")
 elif selected_norm == "Count":
-    st.subheader(f"Land Use {selected_type} Count Distribution in {selected_year} — {selected_area}")
+    st.subheader(f"Land Use {selected_type} Distribution in {selected_year} — {selected_area}")
 else:
     st.subheader(f"Land Use {selected_type} Distribution in Square Miles in {selected_year} — {selected_area}")
 
