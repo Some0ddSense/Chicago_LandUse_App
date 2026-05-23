@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 import altair as alt
+import seaborn as sns
 
 @st.cache_data
 def load_geojson(path):
@@ -235,3 +236,61 @@ line_chart = alt.Chart(trend_df).mark_line(point=True).encode(
 )
 
 st.altair_chart(line_chart, use_container_width=True)
+
+# correlation matrix
+if selected_type == "Parcel Area":
+    st.subheader(f"Correlation Matrix of Land Use Categories — {selected_type} (sq mi) in {selected_year}")
+    plt.title(f"Correlation Matrix of Land Use Categories — {selected_type} (sq mi) in {selected_year}")
+else:
+    st.subheader(f"Correlation Matrix of Land Use Categories — {selected_type} in {selected_year}")
+    plt.title(f"Correlation Matrix of Land Use Categories — {selected_type} in {selected_year}")
+corr_matrix = gdf[land_use_columns].corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
+st.pyplot(plt)
+
+# Box Plot
+st.subheader(f"Box Plot — {selected_type} of Land Use Categories in {selected_year}")
+
+box = gdf.melt(id_vars=["community"], value_vars=land_use_columns, var_name="Land Use", value_name="Value")
+if selected_norm == "Percentage":
+    box["Value"] = (box["Value"] / box["Value"].sum()) * 100
+    box = alt.Chart(box).mark_boxplot().encode(
+        x=alt.X("Land Use:N", title="Land Use Category"),
+        y=alt.Y("Value:Q", title=f"{selected_type} (%)"),
+        tooltip=["community", "Land Use", "Value", alt.Tooltip("Value", format=".2f")]
+    ).properties(
+        width=800,
+        height=400,
+        title=f"Box Plot of {selected_type} of Land Use Categories in {selected_year}"
+    )
+elif selected_norm == "Count":
+    box = alt.Chart(box).mark_boxplot().encode(
+        x=alt.X("Land Use:N", title="Land Use Category"),
+        y=alt.Y("Value:Q", title=f"{selected_type} Count"),
+        tooltip=["community", "Land Use", "Value", alt.Tooltip("Value", format=".2f")]
+    ).properties(
+        width=800,
+        height=400,
+        title=f"Box Plot of {selected_type} of Land Use Categories in {selected_year}"
+    )
+else:
+    box = alt.Chart(box).mark_boxplot().encode(
+        x=alt.X("Land Use:N", title="Land Use Category"),
+        y=alt.Y("Value:Q", title=f"{selected_type} in Square Miles"),
+        tooltip=["community", "Land Use", "Value", alt.Tooltip("Value", format=".2f")]
+    ).properties(
+        width=800,
+        height=400,
+        title=f"Box Plot of {selected_type} of Land Use Categories in {selected_year}"
+    )
+
+st.altair_chart(box, use_container_width=True)
+
+# see table data
+if selected_type == "Parcel Area":
+    st.subheader(f"Data Table — {selected_type} (sq mi) in {selected_year}")
+else:
+    st.subheader(f"Data Table — {selected_type} in {selected_year}")
+
+st.dataframe(gdf[["community"] + land_use_columns + ["All of Chicago"]].sort_values("community").reset_index(drop=True))
