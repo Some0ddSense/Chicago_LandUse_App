@@ -222,7 +222,7 @@ elif selected_norm == "Count":
     y_encoding = alt.Y("Count:Q", title=f"{selected_lu} Parcel Count")
     tooltip_fields = ["Year", "Count"]
 else:
-    y_encoding = alt.Y("Square Miles:Q", title=f"{selected_lu} Parcel Area in Square Miles")
+    y_encoding = alt.Y("Square Miles:Q", title=f"{selected_lu} Area (Square Miles)")
     tooltip_fields = ["Year", "Square Miles"]
 
 line_chart = alt.Chart(trend_df).mark_line(point=True).encode(
