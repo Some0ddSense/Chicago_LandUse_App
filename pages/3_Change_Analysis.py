@@ -14,22 +14,22 @@ def load_geojson(path):
 # Available years
 files = {
     "Parcel Area": {
-        '2023': 'CMAP_Area_Count/LUI_2023_Area.geojson',
-        '2020': 'CMAP_Area_Count/LUI_2020_Area.geojson',
-        '2015': 'CMAP_Area_Count/LUI_2015_Area.geojson',
-        '2010': 'CMAP_Area_Count/LUI_2010_Area.geojson',
-        '2005': 'CMAP_Area_Count/LUI_2005_Area.geojson',
+        '1990': 'CMAP_Area_Count/LUI_1990_Area.geojson',
         '2001': 'CMAP_Area_Count/LUI_2001_Area.geojson',
-        '1990': 'CMAP_Area_Count/LUI_1990_Area.geojson'
+        '2005': 'CMAP_Area_Count/LUI_2005_Area.geojson',
+        '2010': 'CMAP_Area_Count/LUI_2010_Area.geojson',
+        '2015': 'CMAP_Area_Count/LUI_2015_Area.geojson',
+        '2020': 'CMAP_Area_Count/LUI_2020_Area.geojson',
+        '2023': 'CMAP_Area_Count/LUI_2023_Area.geojson'
     },
     "Parcel Count": {
-        '2023': 'CMAP_Area_Count/LUI_2023_Count.geojson',
-        '2020': 'CMAP_Area_Count/LUI_2020_Count.geojson',
-        '2015': 'CMAP_Area_Count/LUI_2015_Count.geojson',
-        '2010': 'CMAP_Area_Count/LUI_2010_Count.geojson',
-        '2005': 'CMAP_Area_Count/LUI_2005_Count.geojson',
+        '1990': 'CMAP_Area_Count/LUI_1990_Count.geojson',
         '2001': 'CMAP_Area_Count/LUI_2001_Count.geojson',
-        '1990': 'CMAP_Area_Count/LUI_1990_Count.geojson'
+        '2005': 'CMAP_Area_Count/LUI_2005_Count.geojson',
+        '2010': 'CMAP_Area_Count/LUI_2010_Count.geojson',
+        '2015': 'CMAP_Area_Count/LUI_2015_Count.geojson',
+        '2020': 'CMAP_Area_Count/LUI_2020_Count.geojson',
+        '2023': 'CMAP_Area_Count/LUI_2023_Count.geojson'
     }
 }
 
