@@ -228,12 +228,27 @@ else:
 line_chart = alt.Chart(trend_df).mark_line(point=True).encode(
     y=y_encoding,
     x=alt.X("Year:O", title="Year"),
-    tooltip=tooltip_fields
+    tooltip=tooltip_fields,
 ).properties(
     width=800,
     height=400,
     title=f"{selected_lu} Trend Over Time — {selected_type} in {selected_area}"
 )
+
+if selected_norm == "Percentage":
+    text = line_chart.mark_text(align='center', dx=5, dy=-15, stroke='black', strokeWidth=1.25, fill='white', fontSize=14).encode(
+        text=alt.Text("Percent:Q", format=".1f")
+    )
+elif selected_norm == "Count":
+    text = line_chart.mark_text(align='center', dx=5, dy=-15, stroke='black', strokeWidth=1.25, fill='white', fontSize=14).encode(
+        text=alt.Text("Count:Q", format=",")
+    )
+else:
+    text = line_chart.mark_text(align='center', dx=5, dy=-15, stroke='black', strokeWidth=.5, fill='white', fontSize=14).encode(
+        text=alt.Text("Square Miles:Q", format=".2f")
+    )
+
+line_chart = line_chart + text
 
 st.altair_chart(line_chart, use_container_width=True)
 
