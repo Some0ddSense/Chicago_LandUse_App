@@ -236,11 +236,11 @@ line_chart = alt.Chart(trend_df).mark_line(point=True).encode(
 )
 
 if selected_norm == "Percentage":
-    text = line_chart.mark_text(align='center', dx=5, dy=-15, stroke='black', strokeWidth=1.25, fill='white', fontSize=14).encode(
+    text = line_chart.mark_text(align='center', dx=5, dy=-15, stroke='black', strokeWidth=.5, fill='white', fontSize=14).encode(
         text=alt.Text("Percent:Q", format=".1f")
     )
 elif selected_norm == "Count":
-    text = line_chart.mark_text(align='center', dx=5, dy=-15, stroke='black', strokeWidth=1.25, fill='white', fontSize=14).encode(
+    text = line_chart.mark_text(align='center', dx=5, dy=-15, stroke='black', strokeWidth=.5, fill='white', fontSize=14).encode(
         text=alt.Text("Count:Q", format=",")
     )
 else:
