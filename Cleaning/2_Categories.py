@@ -9,18 +9,69 @@ def safe_sum(gdf, columns):
         return 0
     return gdf[existing_cols].sum(axis=1)
 
+# MASTER CATEGORY MAP (needed for diagnostics)
+MASTER_CATEGORY_MAP = {
+    'Single Family Residential': ['LANDUSE1110','LANDUSE1111','LANDUSE1112','LANDUSE1120','LANDUSE1140'],
+    'Multi-Family Residential': ['LANDUSE1130'],
+    'Commercial': [
+        'LANDUSE1210','LANDUSE1211','LANDUSE1212','LANDUSE1214','LANDUSE1215',
+        'LANDUSE1220','LANDUSE1221','LANDUSE1222','LANDUSE1223','LANDUSE1224',
+        'LANDUSE1230','LANDUSE1231','LANDUSE1232','LANDUSE1240','LANDUSE1241',
+        'LANDUSE1242','LANDUSE1243','LANDUSE1250','LANDUSE1260'
+    ],
+    'Urban Mix + Residential': ['LANDUSE1216'],
+    'Institutional': [
+        'LANDUSE1310','LANDUSE1311','LANDUSE1312','LANDUSE1313','LANDUSE1320',
+        'LANDUSE1321','LANDUSE1322','LANDUSE1330','LANDUSE1340','LANDUSE1350',
+        'LANDUSE1360','LANDUSE1370','LANDUSE1380','LANDUSE1390'
+    ],
+    'Industrial': [
+        'LANDUSE1410','LANDUSE1420','LANDUSE1430','LANDUSE1431','LANDUSE1432',
+        'LANDUSE1433','LANDUSE1440','LANDUSE1450'
+    ],
+    'TCUW': [
+        'LANDUSE1510','LANDUSE1511','LANDUSE1512','LANDUSE1520','LANDUSE1530',
+        'LANDUSE1540','LANDUSE1550','LANDUSE1560','LANDUSE1561','LANDUSE1562',
+        'LANDUSE1563','LANDUSE1564','LANDUSE1565','LANDUSE1570'
+    ],
+    'Agricultural': ['LANDUSE2000','LANDUSE2100','LANDUSE2200'],
+    'Open Space': [
+        'LANDUSE1151','LANDUSE3100','LANDUSE3110','LANDUSE3120','LANDUSE3130',
+        'LANDUSE3200','LANDUSE3210','LANDUSE3220','LANDUSE3300','LANDUSE3400',
+        'LANDUSE3500', 'LANDUSE3600','LANDUSE6100'
+    ],
+    'Vacant': ['LANDUSE4110','LANDUSE4120','LANDUSE4130','LANDUSE4140','LANDUSE4300'],
+    'Under Construction': ['LANDUSE4210','LANDUSE4220','LANDUSE4230','LANDUSE4240'],
+    'Water': ['LANDUSE5000','LANDUSE5100','LANDUSE5200','LANDUSE5300','LANDUSE6200'],
+    'Non-Parcel / Other': ['LANDUSE6000','LANDUSE6300','LANDUSE6400','LANDUSE9999']
+}
+
 for file_path in glob('CMAP_Area_Count/*.geojson'):
     print(f"\n--- Processing {file_path} ---")
     gdf = gpd.read_file(file_path)
 
     # ---------------------------------------------------------
-    # STEP 1 — CLEAN LANDUSE COLUMNS (convert nulls + strings)
+    # STEP 1 — CLEAN LANDUSE COLUMNS
     # ---------------------------------------------------------
     landuse_cols = [c for c in gdf.columns if c.startswith("LANDUSE")]
 
     print("Columns being summed for TOTAL:")
     for col in landuse_cols:
         print("  -", col)
+
+    # ---------------------------------------------------------
+    # DIAGNOSTIC BLOCK: CHECK CATEGORY COVERAGE
+    # ---------------------------------------------------------
+    all_category_codes = set(code for codes in MASTER_CATEGORY_MAP.values() for code in codes)
+
+    missing_codes = set(landuse_cols) - all_category_codes
+    extra_codes = all_category_codes - set(landuse_cols)
+
+    print("\nMissing LANDUSE codes (exist in file but not in any category):")
+    print(missing_codes)
+
+    print("\nCategory codes that do NOT exist in this file:")
+    print(extra_codes)
 
     # Convert to numeric and replace nulls with 0
     gdf[landuse_cols] = (
@@ -77,5 +128,4 @@ for file_path in glob('CMAP_Area_Count/*.geojson'):
     gdf.to_file(file_path, driver='GeoJSON')
     print(f"✓ Updated {file_path}")
 
-print("\nDone! TOTAL column added correctly and nulls fixed.")
-
+print("\nDone! TOTAL column added correctly and diagnostics printed.")
