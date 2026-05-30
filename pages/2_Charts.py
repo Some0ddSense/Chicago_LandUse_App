@@ -261,7 +261,7 @@ else:
     plt.title(f"Correlation Matrix of Land Use Categories — {selected_type} in {selected_year}")
 corr_matrix = gdf[land_use_columns].corr()
 plt.figure(figsize=(10, 8))
-sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', center=0, fmt=".2f", linewidths=0.5)
 st.pyplot(plt)
 
 # Box Plot
