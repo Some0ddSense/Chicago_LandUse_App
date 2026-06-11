@@ -1,15 +1,11 @@
 import streamlit as st
-import base64
-from pathlib import Path
 
-pdf_path = Path(__file__).parent.parent / "docs/Chicago_Land_Use_Explorer.pdf"
-
-with open(pdf_path, "rb") as f:
-    base64_pdf = base64.b64encode(f.read()).decode("utf-8")
+# Use raw GitHub URL for reliable deployment
+pdf_url = "https://raw.githubusercontent.com/some0ddsense/Chicago_LandUse_App/main/docs/Chicago_Land_Use_Explorer.pdf"
 
 pdf_display = f"""
 <embed
-    src="data:application/pdf;base64,{base64_pdf}"
+    src="{pdf_url}"
     type="application/pdf"
     width="100%"
     height="900px"
