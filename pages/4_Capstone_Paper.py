@@ -2,7 +2,7 @@ import streamlit as st
 import base64
 from pathlib import Path
 
-pdf_path = Path("docs/Chicago_Land_Use_Explorer.pdf")
+pdf_path = Path(__file__).parent.parent / "docs/Chicago_Land_Use_Explorer.pdf"
 
 with open(pdf_path, "rb") as f:
     base64_pdf = base64.b64encode(f.read()).decode("utf-8")
