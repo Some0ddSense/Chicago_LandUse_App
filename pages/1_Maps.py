@@ -99,7 +99,7 @@ folium.GeoJson(
     style_function=lambda feature: {
         'fillOpacity': 0,
         'color': 'black',
-        'weight': 0.3   # <-- thinner outlines
+        'weight': 0.3
     },
     tooltip=folium.GeoJsonTooltip(
         fields=['community', 'percent_land_use', 'square_miles'] if selected_type == "Parcel Area" else ['community', 'percent_land_use'],
