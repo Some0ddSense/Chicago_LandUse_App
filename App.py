@@ -17,7 +17,7 @@ My name is Lauren Hunt, and I am an urban planning professional. I created this 
          2020, 2023) created by the Chicago Metropolitan Agency for Planning (CMAP). I was a GIS intern at 
          CMAP in Summer 2025, and was inspired to explore the data I helped to create further through this 
          project. The goal of this app is to expand data accessibility and better understand how spatial 
-         patterns of land use have developed in Chicago over time. You can read more about the app creation methodology 
+         patterns of land use have developed in Chicago over time. You can read more about the app creation, methodology, 
          and findings in the Capstone Paper section. 
          
          Thank you for taking the time to explore this app!
