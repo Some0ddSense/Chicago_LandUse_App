@@ -1,5 +1,4 @@
-streamlit==1.33.0
-streamlit[pdf]
+streamlit
 pandas
 numpy
 matplotlib
