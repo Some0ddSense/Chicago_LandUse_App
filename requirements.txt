@@ -8,3 +8,4 @@ streamlit-folium
 geopandas
 shapely
 seaborn
+base64
