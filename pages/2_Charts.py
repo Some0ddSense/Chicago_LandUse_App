@@ -3,6 +3,7 @@ import geopandas as gpd
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import matplotlib
 import numpy as np
 import altair as alt
 import seaborn as sns
@@ -120,7 +121,7 @@ st.pyplot(fig1)
 st.subheader(f"{selected_norm} Breakdown")
 
 fig2, ax2 = plt.subplots(figsize=(8, 8))
-colors = cm.get_cmap('tab20')(np.linspace(0, 1, len(totals)))
+colors = matplotlib.colormaps['tab20'](np.linspace(0, 1, len(totals)))
 
 if selected_norm == "Percentage":
     wedges, _ = ax2.pie(
